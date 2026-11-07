@@ -1,0 +1,27 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Only frontend files changed
+        if: github.event_name == 'pull_request'
+        run: |
+          bad=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- src/brands public/brands public/email .github .env.example README.md CONTRIBUTING.md || true)
+          if [ -n "$bad" ]; then echo "These files are managed outside this repo and can't be changed here:"; echo "$bad"; exit 1; fi
+      - run: npx tsc --noEmit -p tsconfig.app.json
+      - run: npm test
+      - run: npx vite build

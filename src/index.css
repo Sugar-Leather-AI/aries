@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Aries AI brand (see Brand Guidelines): Obsidian #0E0C0F, Cream #EDE8E1,
+     Ember #CC6633, Warm Stone #7A6355, Mid Gray #6B6570, Silver #A8A5AE,
+     Charcoal #2C2830, Warm White #F7F4F0, Mist #D8D3DE.
+     Light theme = Cream background, dark theme = Obsidian background. */
+  :root {
+    --background: 35 25% 91%;          /* Cream */
+    --foreground: 280 11% 5%;          /* Obsidian */
+
+    --card: 34 30% 95%;                /* Warm White: panels on Cream */
+    --card-foreground: 280 11% 5%;
+
+    --popover: 34 30% 95%;
+    --popover-foreground: 280 11% 5%;
+
+    --primary: 280 11% 5%;             /* Obsidian buttons, Cream text */
+    --primary-foreground: 35 25% 91%;
+
+    --secondary: 34 20% 86%;
+    --secondary-foreground: 280 11% 5%;
+
+    --muted: 34 20% 87%;
+    --muted-foreground: 273 5% 42%;    /* Mid Gray: body text on Cream */
+
+    --accent: 23 67% 95%;              /* Ember tint */
+    --accent-foreground: 19 64% 31%;   /* dark Ember, readable on the tint */
+
+    --ember: 20 60% 50%;               /* brand Ember: accents, large subheadlines */
+    --ember-foreground: 280 11% 5%;
+    --ember-text: 20 64% 39%;          /* Ember for small text on Cream (AA) */
+
+    --destructive: 4 66% 44%;
+    --destructive-foreground: 34 30% 95%;
+
+    --success: 142 45% 34%;
+    --success-foreground: 34 30% 95%;
+
+    --warning: 33 85% 42%;
+    --warning-foreground: 34 30% 95%;
+
+    --info: 23 18% 41%;                /* Warm Stone */
+    --info-foreground: 34 30% 95%;
+
+    --border: 267 14% 85%;             /* Mist: divider lines */
+    --input: 267 10% 80%;
+    --ring: 20 60% 50%;                /* Ember focus ring */
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 34 30% 95%;
+    --sidebar-foreground: 273 5% 42%;
+    --sidebar-primary: 280 11% 5%;
+    --sidebar-primary-foreground: 35 25% 91%;
+    --sidebar-accent: 23 67% 95%;
+    --sidebar-accent-foreground: 19 64% 31%;
+    --sidebar-border: 267 14% 85%;
+    --sidebar-ring: 20 60% 50%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(20 60% 50%), hsl(19 64% 31%));
+    --gradient-success: linear-gradient(135deg, hsl(142 45% 34%), hsl(150 40% 42%));
+    --gradient-card: linear-gradient(145deg, hsl(34 30% 95%), hsl(35 25% 91%));
+    --shadow-card: 0 1px 3px 0 rgba(14,12,15,0.05), 0 1px 2px -1px rgba(14,12,15,0.04);
+    --shadow-card-hover: 0 4px 12px 0 rgba(14,12,15,0.07), 0 2px 4px -2px rgba(14,12,15,0.05);
+    --shadow-elevated: 0 10px 25px -5px rgba(14,12,15,0.10), 0 8px 10px -6px rgba(14,12,15,0.05);
+  }
+
+  .dark {
+    --background: 280 11% 5%;          /* Obsidian */
+    --foreground: 35 25% 91%;          /* Cream: headlines */
+    --card: 270 9% 17%;                /* Charcoal: panels on Obsidian */
+    --card-foreground: 35 25% 91%;
+    --popover: 270 9% 17%;
+    --popover-foreground: 35 25% 91%;
+    --primary: 35 25% 91%;             /* Cream buttons, Obsidian text */
+    --primary-foreground: 280 11% 5%;
+    --secondary: 270 8% 22%;
+    --secondary-foreground: 35 25% 91%;
+    --muted: 270 8% 20%;
+    --muted-foreground: 260 5% 66%;    /* Silver: body text on Obsidian */
+    --accent: 20 35% 18%;
+    --accent-foreground: 20 70% 68%;
+    --ember: 20 60% 50%;
+    --ember-foreground: 280 11% 5%;
+    --ember-text: 20 70% 62%;
+    --destructive: 4 60% 52%;
+    --destructive-foreground: 35 25% 91%;
+    --success: 142 40% 45%;
+    --success-foreground: 280 11% 5%;
+    --warning: 33 80% 55%;
+    --warning-foreground: 280 11% 5%;
+    --info: 23 20% 60%;
+    --info-foreground: 280 11% 5%;
+    --border: 270 8% 24%;
+    --input: 270 8% 26%;
+    --ring: 20 60% 50%;
+    --sidebar-background: 280 11% 5%;
+    --sidebar-foreground: 260 5% 66%;
+    --sidebar-primary: 35 25% 91%;
+    --sidebar-primary-foreground: 280 11% 5%;
+    --sidebar-accent: 20 35% 18%;
+    --sidebar-accent-foreground: 20 70% 68%;
+    --sidebar-border: 270 8% 18%;
+    --sidebar-ring: 20 60% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased font-sans;
+  }
+  /* Headlines in Cormorant Garamond (brand guide: headline font, 3x body or larger). */
+  h1,
+  h2:is(.text-xl, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl, .text-7xl) {
+    @apply font-display;
+  }
+  code, kbd, pre, samp {
+    @apply font-mono;
+  }
+}
+
+@layer components {
+  .stat-card {
+    @apply bg-card rounded-xl border p-5 transition-all duration-200;
+    box-shadow: var(--shadow-card);
+  }
+  .stat-card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  .glass-panel {
+    @apply bg-card/80 backdrop-blur-lg border rounded-xl;
+  }
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground;
+  }
+  .nav-item-active {
+    @apply bg-sidebar-accent text-sidebar-accent-foreground font-semibold;
+  }
+  .page-header {
+    @apply flex items-center justify-between mb-6;
+  }
+  .page-title {
+    @apply font-display text-3xl font-bold text-foreground;
+  }
+  .insight-card {
+    @apply p-4 rounded-lg border-l-4 transition-all duration-200;
+  }
+  .insight-card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  .kanban-column {
+    @apply flex flex-col min-w-[280px] max-w-[320px] rounded-xl p-3;
+  }
+  .deal-card {
+    @apply bg-card p-4 rounded-lg border cursor-pointer transition-all duration-150;
+    box-shadow: var(--shadow-card);
+  }
+  .deal-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    @apply -translate-y-0.5;
+  }
+}
